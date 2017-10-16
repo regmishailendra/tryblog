@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="38167f54-faf4-4e30-877c-aff6fb3a9b9b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/facebooktry/settings.py" afterPath="$PROJECT_DIR$/facebooktry/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/facebooktry/urls.py" afterPath="$PROJECT_DIR$/facebooktry/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stories/urls.py" afterPath="$PROJECT_DIR$/stories/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
