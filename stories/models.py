@@ -7,7 +7,7 @@ class Story(models.Model):
     content = models.CharField(max_length=500)
     publish = models.DateTimeField(auto_now=False, auto_now_add=True)
     image = models.FileField(null=True, blank=True)
-    user = models.ForeignKey(User, default=1)
+    user = models.ForeignKey(User,default=4)
 
     def __str__(self):
         return self.title
