@@ -1,0 +1,14 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="post" action="" enctype="multipart/form-data">{% csrf_token %}
+
+        {{ form.as_p }}
+
+<input type="submit" value="Login"/>
+
+    </form>
+<h2><a href="{% url 'register' %}">Don't have account?</a></h2>
+{% endblock content %}
+

@@ -1,0 +1,10 @@
+$ curl -X POST -d "username=messi&password=ronaldo" http://127.0.0.1:8000/api/auth/token
+
+from django.core.urlresolvers import reverse
+import requests
+data = [
+  ('username', 'messi'),
+  ('password', 'ronaldo'),
+]
+
+requests.raw_post_data('http://127.0.0.1:8000/api/auth/token/', data=data)

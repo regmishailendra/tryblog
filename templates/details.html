@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h3><a href="{% url 'edit' id=story.id %}">Edit Post</a></h3>
+    <h3><a href="{% url 'delete' id=story.id %}">Delete Post</a></h3>
+
+
+    <br/><br/>
+    <h1>{{ story.title }}</h1>
+
+    <h2>{{ story.content }}</h2>
+  <h4>  {{ story.user.first_name }} </h4>
+    {% if story.image %}
+        <img src='{{ story.image.url }}' class="img-responsive">
+    {% endif %}
+    <h3>{{ story.publish }}</h3>
+{% endblock content %}

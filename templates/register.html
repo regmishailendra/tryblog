@@ -1,0 +1,16 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Register your account here! and Get Started with Us!</h2>
+
+    <form method="post" action="" enctype="multipart/form-data">{% csrf_token %}
+
+        {{ form.as_p }}
+
+<input type="submit" value="Login"/>
+
+    </form>
+{% endblock %}
+
