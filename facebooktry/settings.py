@@ -24,7 +24,7 @@ SECRET_KEY = 'pk6-#90z6(vr3(33^gy&f9wxjl+@yg&68e%$z#k5l-w*w^qghs'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.100.6', '127.0.0.1']
+ALLOWED_HOSTS = ['192.168.100.6', '127.0.0.1','ideadeu.herokuapp.com']
 
 # Application definition
 

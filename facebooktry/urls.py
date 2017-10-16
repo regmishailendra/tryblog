@@ -17,6 +17,8 @@ urlpatterns = [
     url(r'^api/users/', include('accounts.api.urls')),
 url(r'^api/auth/token', obtain_jwt_token),
 
+    url(r'^$', views.list, name='list'),    #brought here from stories app for frontpage
+
 ]
 
 if settings.DEBUG:
