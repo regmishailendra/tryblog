@@ -1,4 +1,6 @@
 from django.conf.urls import url, include
+
+from stories.api.views import FileUploadView
 from . import views
 urlpatterns = [
 

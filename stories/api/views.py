@@ -1,13 +1,18 @@
 from django.contrib.sites import requests
-from rest_framework import permissions, request
+from rest_framework import permissions, request, status
 
 from django.db.models import Q
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, RetrieveUpdateAPIView, DestroyAPIView, \
     get_object_or_404
+from rest_framework.parsers import FileUploadParser
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
 from stories.api.serializers import StoryListerializer, StoryCreateSerializer, StoryDetailSerializer, \
     StoryUpdateSerializer
+from stories.forms import StoryForm
 from stories.models import Story
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
@@ -44,7 +49,7 @@ class StoryListAPIView(ListAPIView):
 class StoryCreateAPIView(CreateAPIView):
     queryset = Story.objects.all()
     serializer_class = StoryCreateSerializer
-    permission_classes = [IsAuthenticated]
+    #permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
          serializer.save(user=self.request.user)
@@ -94,3 +99,33 @@ class StoryDeleteAPIView(DestroyAPIView):
      else:
          raise ValidationError('You cannot delete this post.')
 
+
+class FileUploadView(APIView):
+    parser_classes = (FileUploadParser,)
+
+    def post(self, request):
+        # user = self.request.user
+        # if not user:
+        #     return Response(status=status.HTTP_403_FORBIDDEN)
+        # profile = None
+        # data = None
+        # photo = None
+
+        file_form = StoryForm(request.POST, request.FILES)
+        if file_form.is_valid():
+            photo = request.FILES['file']
+        # else:
+        #     return Response(ajax_response(file_form), status=status.HTTP_406_NOT_ACCEPTABLE)
+        #
+        # try:
+        #     profile = Organizer.objects.get(user=user)
+        #     profile.photo = photo
+        #     profile.save()
+        #     data = OrganizersSerializer(profile).data
+        # except Organizer.DoesNotExist:
+        #     profile = Student.objects.get(user=user)
+        #     profile.photo = photo
+        #     profile.save()
+        #     data = StudentsSerializer(profile).data
+
+        return Response(data)

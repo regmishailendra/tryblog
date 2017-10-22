@@ -24,6 +24,7 @@ class StoryCreateSerializer(ModelSerializer):
             'content',
             'user',
             'publish',
+            'image',
         ]
 
 
@@ -46,3 +47,5 @@ class StoryDeleteSerializer(ModelSerializer):
     class Meta:
         model = Story
         fields = ['title', 'content','user']
+
+
