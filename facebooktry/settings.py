@@ -71,6 +71,14 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
     ),
 
+    'DEFAULT_PARSER_CLASSES': (
+        #'rest_framework.parsers.FileUploadParser',
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.FileUploadParser',
+
+    ),
+
 }
 
 ROOT_URLCONF = 'facebooktry.urls'
