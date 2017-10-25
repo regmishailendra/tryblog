@@ -1,4 +1,9 @@
+import base64
+
+import data as data
 from django.contrib.sites import requests
+from django.core.files.base import ContentFile
+from django.db.migrations import serializer
 from rest_framework import permissions, request, status
 
 from django.db.models import Q
@@ -6,23 +11,20 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, RetrieveUpdateAPIView, DestroyAPIView, \
     get_object_or_404
-from rest_framework.parsers import FileUploadParser
+from rest_framework.parsers import FileUploadParser, JSONParser, FormParser, MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from stories.api.serializers import StoryListerializer, StoryCreateSerializer, StoryDetailSerializer, \
-    StoryUpdateSerializer
+    StoryUpdateSerializer, PhotoSerializer
 from stories.forms import StoryForm
 from stories.models import Story
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 
-
 class StoryListAPIView(ListAPIView):
     serializer_class = StoryListerializer
     permission_classes = [IsAuthenticated]
-
-
 
     def get_queryset(self):
         queryset = Story.objects.all()
@@ -39,20 +41,29 @@ class StoryListAPIView(ListAPIView):
 
         return queryset
 
-    # def get(self, request, format=None):
-    #     content = {
-    #         'user': unicode(request.user),  # `django.contrib.auth.User` instance.
-    #         'auth': unicode(request.auth),  # None
-    #     }
+        # def get(self, request, format=None):
+        #     content = {
+        #         'user': unicode(request.user),  # `django.contrib.auth.User` instance.
+        #         'auth': unicode(request.auth),  # None
+        #     }
 
 
 class StoryCreateAPIView(CreateAPIView):
+    print("create method")
+
     queryset = Story.objects.all()
     serializer_class = StoryCreateSerializer
-    #permission_classes = [IsAuthenticated]
+  #  permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-         serializer.save(user=self.request.user)
+        title=serializer.validated_data.get('title')
+        content=serializer.validated_data.get('content')
+        print('hello'+title+" "+content)
+
+        serializer.save(user=self.request.user)
+
+
+
 
 
 class StoryDetailAPIView(RetrieveAPIView):  # done
@@ -64,7 +75,8 @@ class StoryDetailAPIView(RetrieveAPIView):  # done
 class StoryUpdateAPIView(RetrieveUpdateAPIView):
     queryset = Story.objects.all()
     serializer_class = StoryUpdateSerializer
-   # permission_classes = [IsAuthenticated]
+
+    # permission_classes = [IsAuthenticated]
 
 
     def perform_update(self, serializer):
@@ -74,7 +86,6 @@ class StoryUpdateAPIView(RetrieveUpdateAPIView):
             instance = serializer.validated_data
             print(instance.get('user'))
             print(self.request.user)
-
 
             if instance.get('user') == self.request.user:
                 serializer.save()
@@ -91,41 +102,20 @@ class StoryUpdateAPIView(RetrieveUpdateAPIView):
 class StoryDeleteAPIView(DestroyAPIView):
     queryset = Story.objects.all()
     serializer_class = StoryUpdateSerializer
-    #permission_classes = [IsAuthenticated]
+
+    # permission_classes = [IsAuthenticated]
 
     def perform_destroy(self, instance):
-     if instance.user==self.request.user:
-         instance.delete()
-     else:
-         raise ValidationError('You cannot delete this post.')
+        if instance.user == self.request.user:
+            instance.delete()
+        else:
+            raise ValidationError('You cannot delete this post.')
 
-
-class FileUploadView(APIView):
-    parser_classes = (FileUploadParser,)
-
-    def post(self, request):
-        # user = self.request.user
-        # if not user:
-        #     return Response(status=status.HTTP_403_FORBIDDEN)
-        # profile = None
-        # data = None
-        # photo = None
-
-        file_form = StoryForm(request.POST, request.FILES)
-        if file_form.is_valid():
-            photo = request.FILES['file']
-        # else:
-        #     return Response(ajax_response(file_form), status=status.HTTP_406_NOT_ACCEPTABLE)
-        #
-        # try:
-        #     profile = Organizer.objects.get(user=user)
-        #     profile.photo = photo
-        #     profile.save()
-        #     data = OrganizersSerializer(profile).data
-        # except Organizer.DoesNotExist:
-        #     profile = Student.objects.get(user=user)
-        #     profile.photo = photo
-        #     profile.save()
-        #     data = StudentsSerializer(profile).data
-
-        return Response(data)
+# class ImageApiView(APIView):
+#     def put(self, request, pk, format=None):
+#         photo = self.get_object(pk)
+#         serializer = PhotoSerializer(photo, data=request.DATA)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

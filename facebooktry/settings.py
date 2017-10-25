@@ -60,24 +60,24 @@ REST_FRAMEWORK = {
     #     'rest_framework.parsers.JSONParser',
     # )
 
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        # 'rest_framework.authentication.SessionAuthentication',
+     'DEFAULT_AUTHENTICATION_CLASSES': (
+         'rest_framework.authentication.SessionAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        # 'rest_framework.authentication.BasicAuthentication',
-
+    #     # 'rest_framework.authentication.BasicAuthentication',
+    #
     ),
 
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.AllowAny',
     ),
 
-    'DEFAULT_PARSER_CLASSES': (
-        #'rest_framework.parsers.FileUploadParser',
-        'rest_framework.parsers.JSONParser',
-        'rest_framework.parsers.FormParser',
-        'rest_framework.parsers.FileUploadParser',
-
-    ),
+  #   'DEFAULT_PARSER_CLASSES': (
+  #       #'rest_framework.parsers.FileUploadParser',
+  #       'rest_framework.parsers.JSONParser',
+  #       'rest_framework.parsers.FormParser',
+  # #      'rest_framework.parsers.FileUploadParser',
+  #
+  #   ),
 
 }
 
@@ -100,12 +100,7 @@ TEMPLATES = [
     },
 ]
 #
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'rest_framework.authentication.BasicAuthentication',
-#         'rest_framework.authentication.SessionAuthentication',
-#     )
-# }
+
 
 WSGI_APPLICATION = 'facebooktry.wsgi.application'
 
